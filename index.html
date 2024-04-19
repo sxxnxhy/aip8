@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    
+    <link rel="stylesheet" href="jquery.tooltip.css" />
+    <script src="jquery.js" type="text/javascript"></script>
+    <script src="jquery.tooltip.js" type="text/javascript"></script>
+
+    <style>
+        header {
+            width: 100%;
+            padding: 20px;
+            background-color: #f5f5f5;
+            box-shadow: 0px 2px 5px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2em;
+            color: blue;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            padding: 0;
+            margin: 0;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f5f5f5;
+        }
+        .menu {
+            flex: 1;
+            width: 200px;
+            min-width: 200px;
+            max-width: 200px;   
+            border-right: 1px solid #000;
+            background-color: #fff;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+            padding: 20px;
+        }
+        .menu-item {
+            padding: 10px;
+            cursor: pointer;
+            border-bottom: 1px solid #ddd;
+            transition: background-color 0.3s ease;
+        }
+        .menu-item:hover {
+            background-color: #f9f9f9;
+        }
+        .content {
+            display: flex;
+            padding: 40px;
+            flex-grow: 1;
+            background-color: #fff;
+            box-shadow: -2px 0 5px rgba(0,0,0,0.1);
+        }
+        .exercise-content {
+            flex:3;
+        }
+        @media (max-width: 600px) {
+            body {
+                flex-direction: column;
+            }
+            .menu {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid #000;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+                padding: 20px;
+            }
+            .content {
+                flex-direction: column;
+                box-shadow: none;
+                padding: 20px;
+            }
+            .exercise-content {
+                width: 100%;
+                padding:20px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Yu's Project</h1>
+    </header>
+    <div class="content">
+        <div class="menu">
+            <h2>Menu</h2>
+            <ul id="menu">
+                <li class="menu-item" data-content-url="ex1.html">Exercise 1   
+                    <ul>
+                        <li class="ui-state-disabled"><div>Desctription</div></li>
+                        <li><div>Click to show the content of Ex 1</div></li>
+                    </ul>
+                </li>
+                <li class="menu-item" data-content-url="ex2.html">Exercise 2
+                    <ul>
+                        <li class="ui-state-disabled"><div>Desctription</div></li>
+                        <li><div>Click to show the content of Ex 2</div></li>
+                    </ul>
+                </li>
+                <li class="menu-item" data-content-url="ex3.html">Exercise 3
+                    <ul>
+                        <li class="ui-state-disabled"><div>Desctription</div></li>
+                        <li><div>Click to show the content of Ex 3</div></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="content" id="content">
+            <div id="default-text">
+                <h1>Welcome to the page!</h1>
+                <p>Please select an exercise on the left from the menu to get started.</p>
+            </div>
+            <div id="ex1" style="display: none;"></div>
+            <div id="ex2" style="display: none;"></div>
+            <div id="ex3" style="display: none;"></div>
+        </div>
+        <div class="accordion">
+            <h3>Exercise 1</h3>
+            <div>Information about Exercise 1:
+                <p>Exercise 1 is about creating a table containing the following elements</p>
+                <p>Name, Surname, Age, Sex, Hobby, A Okbutton and a Cancel button</p>
+                <p>When the Ok button is clicked, the collected data is shown on a pop-up window</p>
+            </div>
+            <h3>Exercise 2</h3>
+            <div>Information about Exercise 2...
+                <p>Exercise 2 is about redoing the previous exercise however, using a tableless table</p>
+            </div>
+            <h3>Exercise 3</h3>
+            <div>Information about Exercise 3...
+                <p>Exercise 3 is about creating run code that generates a list of random numbers.</p>
+                <p>It is done by using a Random function.</p>
+                <p>The numbers are then sorted by using the Selection and Quick sorting methods</p>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function() {
+            // Create a new button
+            var $groupButton = $('<div class="menu-item" id="group-button">List of Exercises</div>');
+        
+            // Append the new button to the menu
+            $('.menu h2').after($groupButton);
+
+        
+            // Initially hide all exercise selectors
+            $('.menu-item:not(#group-button)').hide();
+        
+            // Add click event to the new button
+            $('#group-button').click(function() {
+                // Toggle visibility of all exercise selectors with slide effect
+                $('.menu-item:not(#group-button)').slideToggle();
+            });
+        
+            // Add mouseover and mouseout events to change the color of the menu items
+            $('.menu-item').hover(function() {
+                $(this).css('color', 'red');
+            }, function() {
+                $(this).css('color', 'black');
+            });
+        
+            // Add focus and blur events to change the background color of the menu items
+            $('.menu-item').focus(function() {
+                $(this).css('background-color', 'yellow');
+            }).blur(function() {
+                $(this).css('background-color', 'white');
+            });
+
+            // Add click event to the menu items
+            $('.menu-item').click(function() {
+                $(this).animate({
+                    fontSize: '+=2'
+                }, 200, function() {
+                    $(this).animate({
+                        fontSize: '-=2'
+                    }, 200);
+                })
+            })
+
+            // Add a hover effect to the group button
+            $('#group-button').hover(function() {
+                $(this).css('background-color', 'blue');
+            }, function() {
+                $(this).css('background-color', 'white');
+            });
+
+        
+            $('.menu-item:not(#group-button)').click(function() {
+                //the same as the previous exercise
+                var contentUrl = $(this).data('content-url');
+                var contentContainer = $('#' + contentUrl.split('.')[0]);
+
+                $('#ex1, #ex2, #ex3, #default-text').hide();
+
+                $.ajax({
+                    url: contentUrl,
+                    success: function(data) {
+                        contentContainer.html(data);
+                        contentContainer.show();
+                    }
+                });
+        
+                // Hide the default text with a fade effect
+                $('#default-text').fadeOut();
+        
+                // Show the content container with an animation effect
+                contentContainer.show('slow');
+            });
+            $(".accordion").accordion();
+            $("#menu").menu();  
+        });
+    </script>
+</body>
+
+
+
