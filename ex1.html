@@ -1,0 +1,62 @@
+<h1>Exercise 1</h1>
+<table>
+    <tr>
+      <th>Name:</th>
+      <td><input type="text" name="name"></td>
+    </tr>
+    <tr>
+      <th>Surname:</th>
+      <td><input type="text" name="surname"></td>
+    </tr>
+    <tr>
+      <th>Age:</th>
+      <td>
+        <select name="age">
+          <option value="">Select</option>
+          <option value="18-24">18-24</option>
+          <option value="25-34">25-34</option>
+          <option value="35-44">35-44</option>
+          <option value="45-54">45-54</option>
+          <option value="55+">55+</option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <th>Sex:</th>
+      <td>
+        <input type="radio" name="sex" value="male"> Male
+        <input type="radio" name="sex" value="female"> Female
+      </td>
+    </tr>
+    <tr>
+      <th>Hobby:</th>
+      <td>
+        <input type="checkbox" name="hobby[]" value="reading"> Reading
+        <input type="checkbox" name="hobby[]" value="sports"> Sports
+        <input type="checkbox" name="hobby[]" value="music"> Music
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>
+        <button onclick="myFunction()">OK</button>
+        <button type="button">Cancel</button>
+      </td>
+    </tr>
+  </table>
+
+  <script>
+    function myFunction() {
+      let name = document.getElementsByName("name")[0].value;
+      let surname = document.getElementsByName("surname")[0].value;
+      let age = document.getElementsByName("age")[0].value;
+      let sex = document.querySelector('input[name="sex"]:checked').value;
+      let hobbies = [];
+      let hobbyCheckboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+      hobbyCheckboxes.forEach(checkbox => hobbies.push(checkbox.value));
+
+      let message = `Name: ${name}\nSurname: ${surname}\nAge: ${age}\nSex: ${sex}\nHobbies: ${hobbies.join(", ")}`;
+
+      alert(message);
+    }
+  </script>

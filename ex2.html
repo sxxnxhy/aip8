@@ -1,0 +1,87 @@
+<h1>Exercise 2</h1>
+<style>
+    .form-group {
+        display: flex;
+        align-items: center;
+        border: 1px solid black;
+        margin-right: 1200px;
+        margin-bottom: 20px;
+    }
+    label {
+        flex: 1;
+        font-weight: bold;  
+    }
+    input[type="text"],
+    select {
+        flex: 2; /* Adjust the width of input fields */
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        
+    }
+    input[type="radio"],
+    input[type="checkbox"] {
+        margin-right: 10px;
+    }
+    button {
+        padding: 10px 20px;
+        background-color: #0011ff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+</style>
+<div class="form-group">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name">
+</div>
+<div class="form-group">
+    <label for="surname">Surname:</label>
+    <input type="text" id="surname" name="surname">
+</div>
+<div class="form-group">
+    <label for="age">Age:</label>
+    <select id="age" name="age">
+        <option value="">Select</option>
+        <option value="18-24">18-24</option>
+        <option value="25-34">25-34</option>
+        <option value="35-44">35-44</option>
+        <option value="45-54">45-54</option>
+        <option value="55+">55+</option>
+    </select>
+</div>
+<div class="form-group">
+    <label>Sex:</label>
+    <input type="radio" id="male" name="sex" value="male">
+    <label for="male">Male</label>
+    <input type="radio" id="female" name="sex" value="female">
+    <label for="female">Female</label>
+</div>
+<div class="form-group">
+    <label>Hobby:</label>
+    <input type="checkbox" id="reading" name="hobby[]" value="reading">
+    <label for="reading">Reading</label>
+    <input type="checkbox" id="sports" name="hobby[]" value="sports">
+    <label for="sports">Sports</label>
+    <input type="checkbox" id="music" name="hobby[]" value="music">
+    <label for="music">Music</label>
+</div>
+<button onclick="myFunction()">OK</button>
+<button type="button">Cancel</button>
+
+<script>
+    function myFunction() {
+        let name = document.getElementsByName("name")[0].value;
+        let surname = document.getElementsByName("surname")[0].value;
+        let age = document.getElementsByName("age")[0].value;
+        let sex = document.querySelector('input[name="sex"]:checked').value;
+        let hobbies = [];
+        let hobbyCheckboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+        hobbyCheckboxes.forEach(checkbox => hobbies.push(checkbox.value));
+
+        let message = `Name: ${name}\nSurname: ${surname}\nAge: ${age}\nSex: ${sex}\nHobbies: ${hobbies.join(", ")}`;
+
+        alert(message);
+        }
+</script>

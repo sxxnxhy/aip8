@@ -1,0 +1,145 @@
+<h1>Exercise 3</h1>
+    
+<button onclick="runCode()">Run Code</button>
+<div id="results"></div>
+
+<script>
+    function runCode() { 
+    // Clear the previous results
+    document.getElementById('results').innerHTML = '';
+        
+    // Define the range of random numbers
+    const min = 10;
+    const max = 1000;
+
+    // Define the length of the list
+    const length = 100;
+
+    // Function to generate a random number within a range
+    function getRandomNumber(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    // Generate the list of random numbers
+    const randomNumbers = [];
+    for (let i = 0; i < length; i++) {
+        randomNumbers.push(getRandomNumber(min, max));
+    }
+
+    // Print the list of random numbers
+    console.log('Generated random numbers', randomNumbers); 
+
+    // Function to perform selection sort on an array
+    function selectionSort(arr) {
+        let len = arr.length;
+        for (let i = 0; i < len; i++) {
+            let min = i;
+            for (let j = i + 1; j < len; j++) {
+                if (arr[min] > arr[j]) {
+                    min = j;
+                }
+            }
+            if (min !== i) {
+                let tmp = arr[i];
+                arr[i] = arr[min];
+                arr[min] = tmp;
+            }
+        }
+        return arr;
+    }
+
+    // Partition function for Quick Sort
+    function partition(arr, low, high) {
+        let pivot = arr[high];
+        let i = (low - 1);
+    
+        for (let j = low; j <= high - 1; j++) {
+            if (arr[j] < pivot) {
+                i++;
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+        }
+        [arr[i + 1], arr[high]] = [arr[high], arr[i + 1]];
+        return (i + 1);
+    }
+    
+    // Quick Sort function
+    function quickSort(arr, low, high) {
+        if (low < high) {
+            let pi = partition(arr, low, high);
+    
+            quickSort(arr, low, pi - 1);
+            quickSort(arr, pi + 1, high);
+        }
+    }
+
+
+    // Create a table
+    let table = document.createElement('table');
+    table.style.maxWidth = '1000px';
+    table.style.width = '100%';
+
+    // Start the timer with label 'Execution Time with Selection-Sort'
+    let startTime = performance.now();
+
+    // Sort the list of random numbers
+    const sortedNumbers = selectionSort(randomNumbers);
+
+    // Create a row for the Selection-Sort results
+    let row1 = document.createElement('tr');
+    let cell1 = document.createElement('td');
+    cell1.textContent = 'Sorted numbers using Selection-Sort:';
+    row1.appendChild(cell1);
+    let cell2 = document.createElement('td');
+    cell2.textContent = sortedNumbers.join(', ');
+    row1.appendChild(cell2);
+    table.appendChild(row1);
+
+    // Stop the timer with label 'Execution Time with Selection-Sort'
+    let endTime = performance.now();
+
+    // Create a row for the Selection-Sort execution time
+    let row2 = document.createElement('tr');
+    let cell3 = document.createElement('td');
+    cell3.textContent = 'Execution Time with Selection-Sort:';
+    row2.appendChild(cell3);
+    let cell4 = document.createElement('td');
+    cell4.textContent = (endTime - startTime) + ' milliseconds';
+    row2.appendChild(cell4);
+    table.appendChild(row2);
+
+    // Start the timer with label 'Execution Time with Quick-Sort'
+    startTime = performance.now();
+
+    // Call Quick Sort on the randomNumbers array
+    quickSort(randomNumbers, 0, randomNumbers.length - 1);
+
+    // Create a row for the Quick-Sort results
+    let row3 = document.createElement('tr');
+    let cell5 = document.createElement('td');
+    cell5.textContent = 'Sorted numbers using Quick-Sort:';
+    row3.appendChild(cell5);
+    let cell6 = document.createElement('td');
+    cell6.textContent = randomNumbers.join(', ');
+    row3.appendChild(cell6);
+    table.appendChild(row3);
+
+    // Stop the timer with label 'Execution Time with Quick-Sort'
+    endTime = performance.now();
+
+    // Create a row for the Quick-Sort execution time
+    let row4 = document.createElement('tr');
+    let cell7 = document.createElement('td');
+    cell7.textContent = 'Execution Time with Quick-Sort:';
+    row4.appendChild(cell7);
+    let cell8 = document.createElement('td');
+    cell8.textContent = (endTime - startTime) + ' milliseconds';
+    row4.appendChild(cell8);
+    table.appendChild(row4);
+
+    // Add the table to the results div
+    document.getElementById('results').appendChild(table);
+            
+    }
+
+</script>
